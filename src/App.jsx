@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import StartGame from "./components/StartGame";
 import Board from "./components/Board";
 import WinGame from "./components/WinGame";
 import Navbar from "./components/Navbar";
+import Osound from './assets/O.mp3'
+import Xsound from './assets/X.mp3'
+import Winsound from './assets/win.mp3'
+import Drawsound from './assets/draw.mp3'
 
 function App() {
   const [tog, setTog] = useState(false);
@@ -15,7 +19,7 @@ function App() {
   const [draw, setDraw] = useState(false)
 
   function winSound(){
-    const audio = new Audio('/src/assets/win.mp3');
+    const audio = new Audio(Winsound);
       audio.play();
   }
 
@@ -43,13 +47,13 @@ function App() {
     if (tog) {
       e.target.innerText = 'X';
       e.target.style.backgroundColor = '#ED9455'
-      const audio = new Audio('/src/assets/X.mp3');
+      const audio = new Audio(Xsound);
       audio.play();
       setPlayer('O')
     } else {
       e.target.innerText = 'O';
       e.target.style.backgroundColor = '#41B06E'
-      const audio = new Audio('/src/assets/O.mp3');
+      const audio = new Audio(Osound);
       audio.play();
       setPlayer('X')
     }
@@ -99,7 +103,7 @@ function App() {
       winSound()
     }
     else if (arr.every(cell => cell !== '')) {
-      const audio = new Audio('/src/assets/draw.mp3');
+      const audio = new Audio(Drawsound);
       audio.play();
       setDraw(true)
       setWin(!win);
@@ -136,7 +140,7 @@ function App() {
     {newG ? <StartGame turnO={turnO} turnX={turnX} setN={setNewG} n={newG} T={turn} p={player} />
     :
     <div>
-      {win ? <Board onClick={toggle} onClick2={quitGame} p={player} /> : <WinGame onClick={newGame} onClick2={quitGame} w={winner} d={draw} />}
+      {win ? <Board onClick1={toggle} onClick2={quitGame} p={player} /> : <WinGame onClick={newGame} onClick2={quitGame} w={winner} d={draw} />}
     </div>
     }
     </>
